@@ -116,3 +116,17 @@ function increment!(trace::MVHistory{<:History}, key::Symbol, iter::Number, val)
     end
     push!(trace, key, iter, val)
 end
+
+"""
+    drop!(hist, it)
+
+Deletes all values stored for iterations greater than `it` for all
+keys stored in `hist`.
+"""
+function drop!(history::MVHistory, it)
+    lastiters = Int[]
+    for hist=values(history.storage)
+        push!(lastiters, drop!(hist, it))
+    end
+    maximum(lastiters)
+end

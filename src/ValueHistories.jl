@@ -12,7 +12,8 @@ export
       MultivalueHistory,
         MVHistory,
         increment!,
-    @trace
+    @trace,
+    drop!
 
 include("abstract.jl")
 include("history.jl")

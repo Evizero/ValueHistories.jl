@@ -45,6 +45,15 @@ function Base.show(io::IO, history::History{I,V}) where {I,V}
     print(io,   "  * length: $(length(history))")
 end
 
+function Base.resize!(history::History, n)
+    iter, vals = get(history)
+    resize!(iter, n)
+    resize!(vals, n)
+    history.lastiter = last(iter)
+
+    history
+end
+
 """
     increment!(trace, iter, val)
 

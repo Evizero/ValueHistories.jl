@@ -49,6 +49,18 @@ function Base.get(history::QHistory{I,V}) where {I,V}
     karray, varray
 end
 
+function Base.resize!(history::QHistory, n)
+    @assert n <= length(history)
+
+    storage = history.storage
+    while n<length(storage)
+        it, val = pop!(storage)
+    end
+    history.lastiter = first(last(history))
+
+    history
+end
+
 Base.print(io::IO, history::QHistory{I,V}) where {I,V} = print(io, "$(length(history)) elements {$I,$V}")
 
 function Base.show(io::IO, history::QHistory{I,V}) where {I,V}
